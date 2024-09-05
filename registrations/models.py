@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 # from .backends import CustomAuthBackend
 from .managers import CustomUserManager
 from commons.models import AbstractDatedModel, AbstractUUIDModel
+from companies.models import Company
 
 
 class CustomUser(AbstractUUIDModel, AbstractDatedModel, AbstractUser):
@@ -17,7 +18,7 @@ class CustomUser(AbstractUUIDModel, AbstractDatedModel, AbstractUser):
     is_visible = models.BooleanField(blank=True, default=True)
     first_name = models.CharField(max_length=100, verbose_name=_("prénom"))
     last_name = models.CharField(max_length=100, verbose_name=_("nom de famille"))
-    compagny = models.ForeignKey(on_delete=models.PROTECT, verbose_name=_("entreprise"))
+    company = models.ForeignKey(Company, on_delete=models.PROTECT, verbose_name=_("entreprise"))
     slug = models.SlugField()
 
     USERNAME_FIELD = "email"

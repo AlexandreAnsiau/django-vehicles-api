@@ -38,13 +38,18 @@ ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOSTS").split(" ")
 # Application definition
 
 INSTALLED_APPS = [
+    "registrations",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+]
+
+INSTALLED_APPS += [
     "main",
+    "companies",
 ]
 
 MIDDLEWARE = [
@@ -147,6 +152,8 @@ MEDIA_ROOT = Path(BASE_DIR).joinpath("media")
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = "registrations.CustomUser"
 
 if DEBUG:
     TO_EMAIL = env("TO_EMAIL_DEBUG")
