@@ -1,20 +1,6 @@
-# django-base
+# django-vehicles-api
 
-As indicated by its name, django-base, this project can be used as base for the django projects.
-
-## Preinstalled features:
-* Environment variables
-* requirements.txt
-* package.json & package-lock.json
-* Webpack
-* Bootstrap
-* The basic templates
-* Main app
-* test view (path: test/)
-
-## Important information:
-
-Postgres is used as default database as visible in the .env.exemple. But also in the requirements.txt because the psycopg2 package is installed.
+This platform aims to permit companies register their vehicles and extract them via an api.
 
 ## Instantiate the project
 
@@ -93,7 +79,3 @@ First at all, the django server must be turned on.
 > python manage.py runserver
 
 Then the content of the url 127.0.0.1:8000/test/ should be displayed in your browser.
-
-### 6. README.md edition
-
-If the project is not the django-base, the h1 title must be replaced by the name of the new project and the description must be changed. The paragraphs named *Preinstalled features*, *Important informations* and *README.md edition* may be deleted.
