@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block body %}
+<header>
+    {% include 'frags/header.html' %}
+    {% block header %}{% endblock %}
+</header>
+
+<main>
+    {% block main %}{% endblock %}
+</main>
+
+<footer>
+    {% include 'frags/footer.html' %}
+    {% block footer %}{% endblock %}
+</footer>
+{% endblock %}
