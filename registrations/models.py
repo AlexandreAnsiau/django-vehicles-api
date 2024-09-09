@@ -18,7 +18,6 @@ class CustomUser(AbstractUUIDModel, AbstractDatedModel, AbstractUser):
     first_name = models.CharField(max_length=100, verbose_name=_("prénom"))
     last_name = models.CharField(max_length=100, verbose_name=_("nom de famille"))
     company = models.ForeignKey(Company, on_delete=models.PROTECT, verbose_name=_("entreprise"), null=True, blank=True)
-    slug = models.SlugField()
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
