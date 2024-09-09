@@ -17,7 +17,7 @@ class CustomUser(AbstractUUIDModel, AbstractDatedModel, AbstractUser):
     is_visible = models.BooleanField(blank=True, default=True)
     first_name = models.CharField(max_length=100, verbose_name=_("prénom"))
     last_name = models.CharField(max_length=100, verbose_name=_("nom de famille"))
-    company = models.ForeignKey(Company, on_delete=models.PROTECT, verbose_name=_("entreprise"))
+    company = models.ForeignKey(Company, on_delete=models.PROTECT, verbose_name=_("entreprise"), null=True, blank=True)
     slug = models.SlugField()
 
     USERNAME_FIELD = "email"
@@ -34,4 +34,4 @@ class CustomUser(AbstractUUIDModel, AbstractDatedModel, AbstractUser):
         super().save(**kwargs)
 
     def __str__(self):
-        return f"{self.first_name.title()} {self.last_name.title()}"
+        return self.email
