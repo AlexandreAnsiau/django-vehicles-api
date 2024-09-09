@@ -9,3 +9,7 @@ class Company(AbstractUUIDModel, AbstractDatedModel):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        verbose_name = _("Entreprise")
+        verbose_name_plural = _("Entreprises")
