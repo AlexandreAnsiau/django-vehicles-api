@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
-# from .backends import CustomAuthBackend
 from .managers import CustomUserManager
 from commons.models import AbstractDatedModel, AbstractUUIDModel
 from companies.models import Company
