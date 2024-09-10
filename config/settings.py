@@ -23,6 +23,8 @@ Env.read_env(Path(BASE_DIR).joinpath(".env"))
 
 PROJECT_NAME = env("PROJECT_NAME")
 
+PROJECT_LOGO = "/static/img/logo.svg"
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -50,6 +52,7 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
     "main",
     "companies",
+    "commons",
 ]
 
 MIDDLEWARE = [
