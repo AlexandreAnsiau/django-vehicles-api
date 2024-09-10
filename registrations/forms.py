@@ -12,7 +12,11 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = ('email', 'first_name', 'last_name', 'company', 'password')
+        fields = (
+            'email', 'first_name', 'last_name',
+            'is_active', 'is_staff', "is_superuser",
+            'company', 'password'
+        )
         widgets = {
             "password": forms.PasswordInput
         }
