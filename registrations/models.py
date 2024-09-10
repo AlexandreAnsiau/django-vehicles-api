@@ -28,9 +28,5 @@ class CustomUser(AbstractUUIDModel, AbstractDatedModel, AbstractUser):
         verbose_name = _("utilisateur")
         verbose_name_plural = _("utilisateurs")
 
-    def save(self, **kwargs):
-        self.slug = slugify(f"{self.first_name}-{self.last_name}")
-        super().save(**kwargs)
-
     def __str__(self):
         return self.email
