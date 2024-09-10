@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load commons_tags %}
+{% load i18n %}
+{% load static %}
+
+{% block body %}
+<div class="container-fluid h-100 w-100">
+    <div class="position-absolute top-0 end-0 pe-5 pt-3 align-middle">
+        <img class="align-middle" src="{% setting 'PROJECT_LOGO' %}">
+        <h1 class="d-inline align-middle ms-1 fw-bold">
+            {% setting "PROJECT_NAME" %}
+        </h1>
+    </div>
+    <div class="row h-100">
+        <div class="col-6 h-100 bg-primary d-flex flex-column justify-content-center">
+            <div class="m-auto w-50">
+                <img class="w-100" src="{% static 'registrations/img/labo.svg' %}">
+                <h2 class="fw-bold text-center mb-3">
+                    {% setting "PROJECT_NAME" %}{% trans " rend la gestion des tâches plus faciles." %}
+                </h2>
+                <h3 class="h6 text-center">
+                    {% trans "Suivez les progrès et restez organisé sans effort." %}
+                </h3>
+            </div>
+        </div>
+        <div class="col-6 h-100 bg-secondary d-flex flex-column justify-content-center">
+            <div class="m-auto w-50 align-middle">
+                <h2>{% trans "connexion" %}</h2>
+                <label for="{{ form.username.name }}">{{ form.username.label }}</label>
+                <input name="{{ form.username.name }}" id="{{ form.username.id }}">
+                <label>{{ form.password.label }}</label>
+                {{ form.password }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
