@@ -23,9 +23,16 @@ Always in settings.py, you must indicate the model utilized like user model.
 AUTH_USER_MODEL = "registrations.CustomUser"
 ```
 
+The host used must be indicated in the settings whith the HOST variable. For example:
 
+```
+HOST = "127.0.0.1"
+```
 
+The project name used must be indicated in the settings whith the PROJECT_NAME variable. It will be use for the subjects of the mails. For example:
 
-
+```
+PROJECT_NAME = "Project Name"
+```
 
 

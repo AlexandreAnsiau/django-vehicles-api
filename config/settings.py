@@ -32,8 +32,9 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG", default=False)
 
-ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOSTS").split(" ")
+HOST = env("HOST")
 
+ALLOWED_HOSTS = [HOST] + env("DJANGO_ALLOWED_HOSTS").split(" ")
 
 # Application definition
 
@@ -59,9 +60,9 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    #"django.contrib.auth.middleware.LoginRequiredMiddleware",
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "registrations.middlewares.LoginMiddleware"
 ]
 
 ROOT_URLCONF = 'config.urls'
