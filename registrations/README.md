@@ -35,4 +35,5 @@ The project name used must be indicated in the settings whith the PROJECT_NAME v
 PROJECT_NAME = "Project Name"
 ```
 
+The lifetime of the reset password tokens spectify in the settings with the RESET_PASSWORD_TOKEN_VALIDITY variable. Its value must be a datetime.timedelta object. (Indicate the default value)
 

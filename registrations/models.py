@@ -1,8 +1,10 @@
+import datetime
 import uuid
 
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
-from django.utils.text import slugify
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from .managers import CustomUserManager
@@ -39,10 +41,14 @@ class AbstractToken(models.Model):
     class Meta:
         abstract = True
         
-    key = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name=_("clé"))
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, verbose_name=_("utilisateur"))
+    key = models.CharField(default=uuid.uuid4, editable=False, verbose_name=_("clé"))
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name=_("utilisateur"))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Date d'ajout"))
-    is_used = models.BooleanField(default=False, verbose_name=_("est utilisé"))
+    is_actif = models.BooleanField(default=True, verbose_name=_("est actif"))
+
+    def is_valid(self):
+        timedelta = settings.RESET_PASSWORD_TOKEN_VALIDITY if hasattr(settings, "RESET_PASSWORD_TOKEN_VALIDITY") and settings.RESET_PASSWORD_TOKEN_VALIDITY else datetime.timedelta(hours=3)
+        return (self.is_actif and timezone.now() < self.created_at + timedelta)
 
 
 class ResetPasswordToken(AbstractToken):

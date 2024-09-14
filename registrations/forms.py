@@ -32,20 +32,23 @@ class PasswordForm(forms.Form):
         return password_confirmation
     
 
-class PasswordCreationFrom(PasswordForm):
+class PasswordSetFrom(PasswordForm):
     token = forms.CharField(widget=forms.HiddenInput) 
 
     def clean_token(self):
         # Check if the token exist.
         token = self.cleaned_data.get("token")
-        print("ici")
-        if not ResetPasswordToken.objects.filter(key=token).first():
-            print("in token error")
+        token_obj = ResetPasswordToken.objects.filter(key=token).first()
+        if not (token_obj and token_obj.is_valid()):
             raise ValidationError(_("Ce token n'est pas ou n'est plus attribué."))
         return token
+    
+
+class PasswordResetForm(forms.Form):
+    email = forms.EmailField()
 
 
-class UserCreationForm(forms.ModelForm):
+class UserCreationForm(forms.ModelForm, PasswordForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
 
@@ -54,30 +57,8 @@ class UserCreationForm(forms.ModelForm):
         fields = (
             'email', 'first_name', 'last_name',
             'is_active', 'is_staff', "is_superuser",
-            'company', 'password'
+            'company'
         )
-        widgets = {
-            "password": forms.PasswordInput
-        }
-
-    password_confirmation = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
-
-    def clean_password(self):
-        password = self.cleaned_data.get("password")
-        try:
-            # AUTH_PASSWORD_VALIDATORS in the settings are used.
-            validate_password(self.cleaned_data.get("password"))
-        except ValidationError as error:
-            self.add_error('password', error)
-        return password
-
-    def clean_password_confirmation(self):
-        # Check that the two password entries match
-        password = self.cleaned_data.get("password")
-        password_confirmation = self.cleaned_data.get("password_confirmation")
-        if password and password_confirmation and password != password_confirmation:
-            raise ValidationError(_("Les deux mots de passe ne sont pas identiques"))
-        return password_confirmation
 
     def save(self, commit=True):
         # Save the provided password in hashed format

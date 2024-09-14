@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 from environ import Env
@@ -35,6 +36,8 @@ DEBUG = env("DEBUG", default=False)
 HOST = env("HOST")
 
 ALLOWED_HOSTS = [HOST] + env("DJANGO_ALLOWED_HOSTS").split(" ")
+
+RESET_PASSWORD_TOKEN_VALIDITY = timedelta(hours=10)
 
 # Application definition
 
