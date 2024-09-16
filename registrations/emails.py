@@ -9,12 +9,27 @@ class PasswordCreationEmail:
     template_name = "registrations/emails/password_creation.html"
     subject = f"{settings.PROJECT_NAME}: {_('Création de votre mot de passe')}"
 
-    def __init__(self, to, creation_password_token):
+    def __init__(self, to, token):
         self.to = to
-        self.creation_password_token = creation_password_token
+        self.token = token
 
     def send(self, *args, **kwargs):
-        html_context = {"host": settings.HOST, "token": self.creation_password_token.key}
+        html_context = {"host": settings.HOST, "token": self.token.key}
+        html_message = render_to_string(self.template_name, html_context)
+        plain_message = strip_tags(html_message)
+        send_mail(self.subject, plain_message, settings.TO_EMAIL, [self.to], html_message=html_message)
+
+
+class PasswordResetEmail:
+    template_name = "registrations/emails/password_reset.html"
+    subject = f"{settings.PROJECT_NAME}: {_('Modification de votre mot de passe')}"
+
+    def __init__(self, to, token):
+        self.to = to
+        self.token = token
+
+    def send(self, *args, **kwargs):
+        html_context = {"host": settings.HOST, "token": self.token.key}
         html_message = render_to_string(self.template_name, html_context)
         plain_message = strip_tags(html_message)
         send_mail(self.subject, plain_message, settings.TO_EMAIL, [self.to], html_message=html_message)

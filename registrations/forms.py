@@ -44,10 +44,6 @@ class PasswordSetFrom(PasswordForm):
         return token
     
 
-class PasswordResetForm(forms.Form):
-    email = forms.EmailField()
-
-
 class UserCreationForm(forms.ModelForm, PasswordForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
@@ -100,3 +96,13 @@ class AdminCreationUserForm(forms.ModelForm):
         PasswordCreationEmail(user.email, token).send()
         return user
     
+
+class PasswordResetRequestForm(forms.Form):
+    email = forms.EmailField()
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        user = CustomUser.objects.filter(email=email).first()
+        if not user:
+            raise ValidationError(_("Aucun utilisateur possédant cet email n'est enregistré."))
+        return email
